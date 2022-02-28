@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*
+ * CEN 4031 Advanced Programming Development Framework
+ * Class: 3222  Instructor: Tillman  Team: Honey Badger
+ * Final Project: MyFitTimer
+ * Members: Jacob Leffew, William Kategianes, Sean Meinsen
+*/
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;

@@ -1,46 +1,34 @@
 ﻿@page
 @model MyFitTimer.Pages.TimerRun.IndexModel
 
-@{ ViewData["Title"] = "Index"; }
-
-<h1>Index</h1>
-
-
-@*<p>
-        <a asp-page="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.TimerRuns[0].StartTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TimerRuns[0].EndTime)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model.TimerRuns) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndTime)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
-            </tr>
+@{ ViewData["Title"] = "Timer";
+    string[] TableHeaders = new string[] { "Start Time", "End Time", "Elapsed Time" };
+}
+<style>
+    td {
+        padding: 5px;
+        border: 1px solid;
     }
-        </tbody>
-    </table>*@
+</style>
+<!--
+    CEN 4031 Advanced Programming Development Framework
+    Class: 3222  Instructor: Tillman  Team: Honey Badger
+    Final Project: MyFitTimer
+    Members: Jacob Leffew, William Kategianes, Sean Meinsen
+    -->
+<h1>Timer</h1>
 
-<p>Test Code for starting timer</p>
+<br />
+<div>
+    Elapsed Time:
+    @{
+        if (Model.ElapsedTime != null)
+        {
+            @Html.DisplayFor(modelItem => @Model.ElapsedTime)
+        }
+    }
+</div>
+<br />
 
 <div class="row">
     <div class="col-md-6">
@@ -51,9 +39,42 @@
 
     <div class="col-md-6">
         <form method="post">
-            <button type="submit" id="btnStart" value="StopTimer" asp-page-handler="StopTimer">Stop Timer</button>
+            <button type="submit" id="btnStop" value="StopTimer" asp-page-handler="StopTimer">Stop Timer</button>
         </form>
     </div>
 </div>
+<br />
+<div class="resultsTable">
+    <table>
+        <thead>
+            <tr>
+                @{
+                    foreach (var header in TableHeaders)
+                    {
+                        <th>
+                            @header
+                        </th>
+                    }
+                }
+            </tr>
+        </thead>
+        @{
+            if (Model.TimerRuns != null)
+                foreach (var TimerRun in Model.TimerRuns)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => TimerRun.StartTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TimerRun.EndTime)
+                        </td>
+                        <td>
+                            @Model.GetTimerElapsedTime(TimerRun)
+                        </td>
+                    </tr>
+                }
+        }
+    </table>
+</div>
 
-<p>End Test Code</p>
